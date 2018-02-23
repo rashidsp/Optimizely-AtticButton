@@ -131,7 +131,7 @@ function Main()
 var templateFunctions = {};
 
 $(document).ready(function () {
-    
+    // browser back button on checkout page
     $(window).bind('hashchange', function(event){
         var oldHash = event.originalEvent.oldURL.split('#')[1]
         var newHash = event.originalEvent.newURL.split('#')[1]
