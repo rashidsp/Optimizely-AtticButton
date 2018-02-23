@@ -126,6 +126,7 @@ function eventHandler()
 
     this.showCreditCardSection = function () {
         main.loadCreditCardSection();
+        window.location.hash = Object.keys(templateFunctions)[7]
+        $('#CreditCardPartial').show();
     }
 };
-

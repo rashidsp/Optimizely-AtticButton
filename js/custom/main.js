@@ -20,6 +20,7 @@ function Main()
     var loadUI = function (data, element, key) {
         $('a[data-toggle="tab"]').removeClass("active show");
         $("a[data-key=" + that.currentTab.tab + "]").addClass('active show');
+        window.location.hash = that.currentTab.tab
         element.html(templateFunctions[key](data));
 
     };
@@ -101,7 +102,7 @@ function Main()
         }, eventHandler.failureCallback);
     }
     this.loadCreditCardSection = function () {
-        $('#next_btn').hide();
+        $('#shippingSection').hide();
         loadUI(that.currentTab.data.creditCardData, $('#CreditCardPartial'), Object.keys(templateFunctions)[7]);
     };
 
@@ -130,6 +131,15 @@ function Main()
 var templateFunctions = {};
 
 $(document).ready(function () {
+    
+    $(window).bind('hashchange', function(event){
+        var oldHash = event.originalEvent.oldURL.split('#')[1]
+        var newHash = event.originalEvent.newURL.split('#')[1]
+        if(oldHash == Object.keys(templateFunctions)[7] && newHash == Object.keys(templateFunctions)[2]){
+            $('#shippingSection').show();
+            $('#CreditCardPartial').hide();
+        }
+    });
 
     $(document).ajaxStart(function () {
         $("#content").addClass('disable-content');
