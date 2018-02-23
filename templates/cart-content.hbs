@@ -1,0 +1,98 @@
+<!-- 
+Copyright 2018, Optimizely
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+<table id='cartContent' class="table table-xs">
+    <tbody>
+        <tr>
+            <th></th>
+            <th>Product</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Quantity</th>
+            <th class="text-right">Amount</th>
+            <th class="text-right"></th>
+        </tr>
+        {{#ifCond products.length ">" 0}} {{#each products}} {{#ifCond this.quantity '>' 0}}
+        <tr class="item-row product">
+            <td style="width: 8rem;">
+                <img class="img-thumbnail" src="{{this.imageUrl}}" alt="Item 4">
+            </td>
+            <td>
+                <p>
+                    <strong>
+               {{this.name}}
+               </strong>
+                </p>
+                <p>
+                    <span><strong>Color: </strong> {{this.color}},</span>
+                    <span><strong>Category: </strong> {{this.category}}</span>
+                </p>
+            </td>
+            <td class="text-right product-price totals-value" title="Price">{{amountFixed this.price}}</td>
+            <td class="text-right product-quantity" title="Quantity">
+                <input max="100" min="1" actual_qty="{{this.quantity}}" id="pr-qty_{{this.id}}" style="width: 2.5rem;" type="number" value="{{this.quantity}}" , onchange="eventHandler.updateCart({{this.id}});">
+            </td>
+            <td class="text-right product-line-price totals-value" title="Amount">{{amountFixed (math this.quantity "*" this.price)}}</td>
+            <td class="product-removal text-right" title="Remove">
+                <button class="btn btn-danger btn-sm remove-product" onclick="eventHandler.removeProduct({{this.id}}, {{this.quantity}});">
+                    Remove
+                </button>
+            </td>
+        </tr>
+        {{/ifCond}} {{/each}} {{#ifCond cartData.discountPercentage ">" 0}}
+        <tr>
+            <td class="text-right"></td>
+            <th class="text-right" colspan="4">Subtotal</th>
+            <td class="text-right totals-value" id="cartSubtotal">{{amountFixed cartData.subTotal}}</td>
+        </tr>
+        <tr>
+            <td class="text-right border-0"></td>
+            <th class="border-0 text-right" colspan="4">{{cartData.discountAudience}} Discount ({{cartData.discountPercentage}}%)</th>
+            <td class="border-0 text-right totals-value" id="cartDiscount">({{amountFixed cartData.discountTotal}})</td>
+        </tr>
+        <tr>
+            <td class="text-right border-0"></td>
+            <th class="border-0 text-right" colspan="4">Total</th>
+            <td class="border-0 text-right totals-value" id="cartTotal">{{amountFixed cartData.total}}</td>
+        </tr>
+        {{else}}
+        <tr>
+            <td class="text-right"></td>
+            <th class="text-right" colspan="4">Total</th>
+            <td class="text-right totals-value" id="cartSubtotal">{{amountFixed cartData.total}}</td>
+        </tr>
+        {{/ifCond}}
+        <tr>
+            <td class="border-0 text-left" colspan="4">
+                <input id="clearCart" class="btn btn-lg btn-danger" type="button" value="Clear" onclick="eventHandler.clearCart();" />
+                <a data-confirm="Are you sure? want to delete all items!" </td>
+                    <td class="border-0 text-right" colspan="4">
+                        {{#if cartData.buynowEnabled }}
+                        <button type="button" class="btn btn-info btn-lg checkout" onclick="eventHandler.showReceipt();">
+                            Buy Now
+                        </button>
+                        {{else}}
+                        <input id="checkoutCart" class="btn btn-info btn-lg checkout" type="button" value="Checkout" onclick="eventHandler.loadPaymentPage();" /> {{/if}}
+                    </td>
+        </tr>
+        {{else}}
+        <tr>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
+            <td class="text-right">Not data found</td>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
+        </tr>
+        {{/ifCond}}
+    </tbody>
+</table>

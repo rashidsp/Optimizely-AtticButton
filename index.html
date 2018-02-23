@@ -1,0 +1,120 @@
+<!-- 
+Copyright 2018, Optimizely
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>Optimizely PHP SDK Demo Application</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="js/vendor/handlebars-v4.0.11.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/popper.min.js"></script>
+    <script src="js/vendor/respond.min.js"></script>
+    <script src="js/vendor/datatables.min.js"></script>
+    <script src="js/custom/main.js"></script>
+    <!-- Cart handler -->
+    <script src="js/custom/carthandler.js"></script>
+    <!-- Generates dynamic templates -->
+    <script src="js/custom/template.compiler.js"></script>
+    <!-- Manages user's authentication-->
+    <script src="js/custom/user.js"></script>
+    <!-- Provides functions for each template -->
+    <script src="js/custom/index.js"></script>
+    <!-- Handles the ajax request calls -->
+    <script src="js/custom/communication.layer.js"></script>
+</head>
+
+<body>
+    <!-- Header tabs -->
+    <div id="loader"></div>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-dark bg-dark" style="background-color: #e3f2fd;">
+        <button aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarTogglerDemo03" data-toggle="collapse" type="button"></button>
+        <a class="navbar-brand" href="/">Attic &amp; Button</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+            <div class="form-inline my-2 my-lg-0" id="profileContent">
+            </div>
+        </div>
+    </nav>
+    <!-- Login form modal -->
+    <div aria-hidden="true" aria-labelledby="loginModalLabel" class="modal fade" id="loginModal" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header card-header text-center">
+                    <h5 id="exampleModalLongTitle">
+                   <span class="text-info">Attic & Button</span>
+                </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body card-block">
+                    <div id="ErrorMessage"></div>
+                    <section class="login-form pt-0" id="Headerlogin">
+                        <div class="form-wrap">
+                            <form id="loginForm">
+                                <div class="form-group">
+                                    <label class="sr-only" for="email">Email</label>
+                                    <input type="email" name="email" id="exampleInputEmail1" placeholder="Enter email" class="form-control" aria-describedby="emailHelp">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="password">Password</label>
+                                    <input type="password" name="password" id="key" class="form-control" placeholder="Password">
+                                </div>
+                                <button name="button" type="submit" class="btn btn-info btn-lg btn-block" id="#btn-login">Log in</button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Receipt modal -->
+    <div aria-hidden="true" aria-labelledby="receiptModalLabel" class="modal fade bd-example-modal-lg" id="receiptModal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header card-header">
+                    <h5 class="modal-title" id="receiptModalLongTitle"></h5>
+                    <button type='buttton' id="closeCartModal" class="close" onclick="eventHandler.placeOrder(2);"><span aria-hidden="true">x</span></button>
+                </div>
+                <div class="modal-body card-block" id="receiptTemplate">
+                </div>
+                <div class="modal-footer">
+                    <button type='buttton' class="btn btn-info btn-lg checkout" onclick="eventHandler.placeOrder(2);">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Flash messages -->
+    <div id="flashMessage">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 pt-3 pb-3">
+                <!--Layout tabs render here -->
+                <ul id="demo-tabs" class="nav nav-tabs demo-tabs">
+                </ul>
+            </div>
+        </div>
+        <!-- Pages render here -->
+        <div id="content" class="container">
+        </div>
+    </div>
+</body>
+
+</html>

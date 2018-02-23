@@ -1,0 +1,67 @@
+<!-- 
+Copyright 2018, Optimizely
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+<div class="row">
+    <table class="table table-xs">
+        <tbody>
+            <tr>
+                <th></th>
+                <th>Product</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Quantity</th>
+                <th class="text-right">Amount</th>
+            </tr>
+            {{#each products}} {{#ifCond this.quantity '>' 0 }}
+            <tr class="item-row product">
+                <td style="width: 8rem;">
+                    <img class="img-thumbnail" src="{{this.imageUrl}}" alt="Item 7">
+                </td>
+                <td>
+                    <p>
+                        <strong>
+                        {{this.name}}
+                        </strong>
+                    </p>
+                    <p>
+                        <span><strong>Color: </strong> {{this.color}},</span>
+                        <span><strong>Category: </strong> {{this.category}}</span>
+                    </p>
+                </td>
+                <td class="text-right product-price totals-value" title="Price">{{amountFixed this.price}}</td>
+                <td class="text-right product-quantity" title="Quantity">
+                    {{this.quantity}}
+                </td>
+                <td class="text-right product-line-price totals-value" title="Amount">{{amountFixed (math this.quantity "*" this.price)}}</td>
+            </tr>
+            {{/ifCond}} {{/each}} {{#ifCond cartData.discountPercentage '>' 0 }}
+            <tr>
+                <th class="text-right" colspan="4">Subtotal</th>
+                <td class="text-right totals-value" id="cartSubtotal">{{amountFixed cartData.subTotal}}</td>
+            </tr>
+            <tr>
+                <th class="border-0 text-right" colspan="4">{{cartData.discountAudience}} Discount ({{cartData.discountPercentage}}%)</th>
+                <td class="border-0 text-right totals-value" id="cartDiscount">{{amountFixed cartData.discountTotal}}</td>
+            </tr>
+            <tr>
+                <th class="border-0 text-right" colspan="4">Total</th>
+                <td class="border-0 text-right totals-value" id="cartTotal">{{amountFixed cartData.total}}</td>
+            </tr>
+            {{else}}
+            <tr>
+                <th class="text-right" colspan="4">Total</th>
+                <td class="text-right totals-value" id="cartSubtotal">{{amountFixed cartData.subTotal}}</td>
+            </tr>
+            {{/ifCond}}
+        </tbody>
+    </table>
+</div>
